@@ -48,11 +48,23 @@ public class Game {
             rolledDice = (int) (Math.random() * (max - min + 1) + min);
             System.out.println("dice lands on " + rolledDice);
             positionOfDice += rolledDice;
+            if(positionOfDice == 100){
+                System.out.println("Game Over");
+                break;
+            }
+            if(positionOfDice>100){
+                int sub = positionOfDice - 100;
+                positionOfDice = 100 - sub;
+            }
             System.out.println(".... " + positionOfDice);
             for (Map.Entry<Integer, Integer> ga : gameMap.entrySet()) {
                 if (positionOfDice == ga.getKey()) {
-                    positionOfDice += ga.getValue();
-                    System.out.println(positionOfDice + " " + ga.getValue());
+                    positionOfDice = (ga.getValue() < 0) ? positionOfDice + ga.getValue() : ga.getValue();
+                    if(ga.getValue() < 0){
+                    System.out.println("You been eaten by snake.." + ga.getKey() + " " + ga.getValue());}
+                    else{
+                        System.out.println("Get ready to climb on ladder " + ga.getKey() + " " + ga.getValue());
+                    }
                 }
 //            if (positionOfDice > 100) {
 //                break;
